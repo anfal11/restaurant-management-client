@@ -24,7 +24,7 @@ const CardItem = () => {
     >
     </SectionTitle>
       <Swiper
-        slidesPerView={4}
+        slidesPerView={3}
         spaceBetween={30}
         pagination={{
           clickable: true,
@@ -35,8 +35,8 @@ const CardItem = () => {
         <div>
           {card.map((item) => (
             <SwiperSlide key={item._id}>
-              <div className="card w-80 h-96 bg-base-100 mb-12 shadow-xl">
-                <figure className="px-10 pt-10">
+              <div className="card w-28 md:w-64 lg:w-80 xl:w-96 h-[700px] md:h-[500px] xl:h-96 bg-base-100 mb-24 lg:mb-12 shadow-xl">
+                <figure className="md:px-10 pt-10">
                   <img
                     src={item.image}
                     alt="foodImage"
@@ -44,7 +44,7 @@ const CardItem = () => {
                   />
                 </figure>
                 <div className="card-body items-center text-center">
-                  <h2 className="card-title">{item.name}</h2>
+                  <h2 className="text-base font-bold lg:card-title">{item.name}</h2>
                   <p>{item.recipe}</p>
                   <p>${item.price}</p>
                   <div className="card-actions">
