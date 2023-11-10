@@ -2,13 +2,19 @@ const Navbar = () => {
   const nav = (
     <>
       <li>
-        <a>Item 1</a>
+        <a>Home</a>
       </li>
       <li>
-        <a>Item 2</a>
+        <a>Contact Us</a>
       </li>
       <li>
-        <a>Item 3</a>
+        <a>Dashboard</a>
+      </li>
+      <li>
+        <a>Our Menu</a>
+      </li>
+      <li>
+        <a>Our Shop</a>
       </li>
     </>
   );
@@ -42,7 +48,8 @@ const Navbar = () => {
             </ul>
           </div>
           <a className="btn btn-ghost normal-case text-xl hidden lg:block">
-            daisyUI
+          TasteTrove Tavern<br />
+            Restaurant 
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
