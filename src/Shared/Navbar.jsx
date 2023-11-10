@@ -4,19 +4,19 @@ const Navbar = () => {
   const nav = (
     <>
       <li>
-        <Link to='/'>Home</Link>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to=''>Contact Us</Link>
+        <Link to="">Contact Us</Link>
       </li>
       <li>
-        <Link to=''>Dashboard</Link>
+        <Link to="">Dashboard</Link>
       </li>
       <li>
-        <Link to='menu'>Our Menu</Link>
+        <Link to="menu">Our Menu</Link>
       </li>
       <li>
-        <Link to=''>Our Shop</Link>
+        <Link to="order">Order</Link>
       </li>
     </>
   );
@@ -49,9 +49,13 @@ const Navbar = () => {
               {nav}
             </ul>
           </div>
-          <Link to='/' className="btn btn-ghost normal-case text-xl hidden lg:block">
-          TasteTrove Tavern<br />
-            Restaurant 
+          <Link
+            to="/"
+            className="btn btn-ghost normal-case text-xl hidden lg:block"
+          >
+            TasteTrove Tavern
+            <br />
+            Restaurant
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
