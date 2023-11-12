@@ -7,6 +7,7 @@
 import img from "../assets/others/authentication2.png"
 import { Link } from "react-router-dom";
 import {FcGoogle} from 'react-icons/fc'
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
 //   const captchaRef = useRef(null);
@@ -35,6 +36,9 @@ const Login = () => {
 
   return (
     <div className="hero min-h-screen bg-base-200">
+    <Helmet>
+        <title>Tavern Restaurant | LogIn</title>
+</Helmet>
       <div className="hero-content flex-col lg:flex-row">
         <div className="text-center md:w-1/2 lg:text-left">
           
