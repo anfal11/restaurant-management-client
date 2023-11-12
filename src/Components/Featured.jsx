@@ -1,6 +1,7 @@
 import SectionTitle from "./SectionTitle";
 import featured from '../../src/assets/home/featured.jpg'
 import './Featured.css'
+import { Link } from "react-router-dom";
 
 
 const Featured = () => {
@@ -19,7 +20,9 @@ const Featured = () => {
                 <p>March 20, 2023</p>
                 <p>WHERE CAN I GET SOME?</p>
                 <p>Explore our signature dishes, crafted with precision. Delight in the fusion of flavors at our culinary haven. Indulge in a gastronomic journey!</p>
+                <Link to='/order/salad'>
                 <button className="btn btn-outline border-0 border-b-4 text-white">Order Now</button>
+                </Link>
                 </div>
             </div>
         </div>
