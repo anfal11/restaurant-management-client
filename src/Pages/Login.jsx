@@ -10,7 +10,7 @@ const Login = () => {
 
 const navigate = useNavigate();
 const location = useLocation();
-const { signInWIthMail} = useContext(AuthContext);
+const { signInWIthMail, signInWithGoogle} = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +28,17 @@ const { signInWIthMail} = useContext(AuthContext);
     toast.error(err.message);
   })
   };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithGoogle();
+      toast.success("User logged in successfully");
+      navigate(location?.state ? location?.state : "/");
+    }
+    catch (err) {
+      toast.error(err.message);
+    }
+  }
 
 
   return (
@@ -102,7 +113,7 @@ const { signInWIthMail} = useContext(AuthContext);
           </form>
           <div className="flex flex-col items-center pb-8">
         <h1 className="text-[#c49249]">New here? <Link className="underline" to='/register'> Create a New Account</Link></h1>
-        <h1 className="text-[#c49249] flex items-center gap-1">Or sign in with <FcGoogle className="text-3xl" /> </h1>
+        <h1 className="text-[#c49249] flex items-center gap-1">Or sign in with <FcGoogle onClick={handleGoogleLogin} className="text-3xl cursor-pointer" /> </h1>
         
         </div>
         </div>
