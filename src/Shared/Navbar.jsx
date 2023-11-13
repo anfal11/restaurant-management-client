@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
+import {BsCartCheckFill} from 'react-icons/bs'
 
 const Navbar = () => {
   const {user, logOut} = useContext(AuthContext);
@@ -29,6 +30,14 @@ const Navbar = () => {
         <Link to="/login">Log In</Link>
       </li> </>
       }
+      <li>
+        <Link to='/'>
+        <p className="flex">
+        <BsCartCheckFill className="text-xl"></BsCartCheckFill>
+  <div className="badge badge-secondary">+0</div>
+</p>
+        </Link>
+      </li>
     </>
   );
 

@@ -4,22 +4,61 @@ import Cover from "../Shared/Cover";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import useMenu from "../Hooks/useMenu";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AuthContext } from "../Context/AuthProvider";
+import toast from "react-hot-toast";
+import axios from "axios";
+import useAxios from "../Hooks/useAxios";
 
 const Order = () => {
   const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
-  const {category} = useParams();
+  const { category } = useParams();
   const initialIndex = categories.indexOf(category);
   const [tabIndex, setTabIndex] = useState(initialIndex);
   const [menu] = useMenu();
+  const {user} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const axiosSecure = useAxios();
+
   
-  
+
+
   const dessert = menu.filter((item) => item.category === "dessert");
   const pizza = menu.filter((item) => item.category === "pizza");
   const soup = menu.filter((item) => item.category === "soup");
   const salad = menu.filter((item) => item.category === "salad");
   const drinks = menu.filter((item) => item.category === "drinks");
+
+
+  const handleAddToCart = (item) => {
+    // console.log(item, user?.email);
+    if (user && user.email) {
+     const cartItem = {
+        ...item,
+        email: user?.email,
+        name: item?.name,
+        price: item.price,
+        image: item.image,
+     }
+     console.log(cartItem);
+
+    //  axios.post('http://localhost:5000/api/v1/cart', cartItem)
+    axiosSecure.post('/api/v1/cart', cartItem)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            toast.success("Your item added to cart successfully");
+          }
+        })
+       
+    } else {
+      toast('Please login to add to cart', {
+        icon: '❌',
+      });
+      navigate('/login');
+    }
+  }
 
   return (
     <div>
@@ -59,7 +98,9 @@ const Order = () => {
                     </h2>
                     <p>{item.recipe}</p>
                     <div className="card-actions justify-center">
-                      <button className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
+                      <button
+                      onClick={() => handleAddToCart(item)}
+                       className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
                         Add to Cart
                       </button>
                     </div>
@@ -85,7 +126,9 @@ const Order = () => {
                     </h2>
                     <p>{item.recipe}</p>
                     <div className="card-actions justify-center">
-                      <button className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
+                      <button
+                      onClick={() => handleAddToCart(item)}
+                       className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
                         Add to Cart
                       </button>
                     </div>
@@ -111,7 +154,9 @@ const Order = () => {
                     </h2>
                     <p>{item.recipe}</p>
                     <div className="card-actions justify-center">
-                      <button className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
+                      <button
+                      onClick={() => handleAddToCart(item)}
+                       className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
                         Add to Cart
                       </button>
                     </div>
@@ -137,7 +182,9 @@ const Order = () => {
                     </h2>
                     <p>{item.recipe}</p>
                     <div className="card-actions justify-center">
-                      <button className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
+                      <button
+                        onClick={() => handleAddToCart(item)}
+                       className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
                         Add to Cart
                       </button>
                     </div>
@@ -163,7 +210,9 @@ const Order = () => {
                     </h2>
                     <p>{item.recipe}</p>
                     <div className="card-actions justify-center">
-                      <button className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
+                      <button
+                       onClick={() => handleAddToCart(item)}
+                       className="btn bg-gray-200 text-yellow-600 border-b-4 border-b-yellow-600 hover:bg-black hover:text-white">
                         Add to Cart
                       </button>
                     </div>
