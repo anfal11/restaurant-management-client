@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 
 const Register = () => {
   const [disabled, setDisabled] = useState(true);
-  const { createUser } = useContext(AuthContext);
+  const { createUser, userUpdateProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const {
@@ -29,11 +29,14 @@ const Register = () => {
             const loggedInUser = result.user;
             navigate('/login')
             // console.log(loggedInUser);
-            toast.success("User created successfully");
+            userUpdateProfile(data.name, data.photo)
+            .then (() => {
+              toast.success("User created successfully");
+            })
+            .catch((error) => {
+              toast.error(error.message);
+            });
         })
-        .catch((error) => {
-            toast.error(error.message);
-        });
   };
 
   useEffect(() => {

@@ -73,7 +73,18 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{nav}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {
+            user ? 
+            <>
+            <p>{user?.displayName}</p> 
+            <img className="rounded-full w-1/4 md:w-[10%] mx-4" src={user?.photoURL} alt="" />
+            </>
+            :
+            <>
+            <p>Guest</p> 
+            <img className="rounded-full w-1/4 md:w-[10%] mx-4" src='https://i.ibb.co/QrdfRKF/85434-guest-512x512.png' alt="" />
+            </>
+          }
         </div>
       </div>
     </div>
