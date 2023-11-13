@@ -8,8 +8,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthProvider";
 import toast from "react-hot-toast";
-import axios from "axios";
+// import axios from "axios";
 import useAxios from "../Hooks/useAxios";
+import useCart from "../Hooks/useCart";
 
 const Order = () => {
   const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
@@ -20,6 +21,7 @@ const Order = () => {
   const {user} = useContext(AuthContext);
   const navigate = useNavigate();
   const axiosSecure = useAxios();
+  const [, refetch] = useCart();
 
   
 
@@ -34,14 +36,14 @@ const Order = () => {
   const handleAddToCart = (item) => {
     // console.log(item, user?.email);
     if (user && user.email) {
+      // sent cart item to the database
      const cartItem = {
-        ...item,
         email: user?.email,
         name: item?.name,
         price: item.price,
         image: item.image,
      }
-     console.log(cartItem);
+    //  console.log(cartItem);
 
     //  axios.post('http://localhost:5000/api/v1/cart', cartItem)
     axiosSecure.post('/api/v1/cart', cartItem)
@@ -49,8 +51,10 @@ const Order = () => {
           console.log(res.data);
           if (res.data.insertedId) {
             toast.success("Your item added to cart successfully");
+            refetch();
           }
         })
+        // refetch cart to update the count
        
     } else {
       toast('Please login to add to cart', {
