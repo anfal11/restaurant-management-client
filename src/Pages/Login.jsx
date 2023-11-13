@@ -1,38 +1,34 @@
-// import { useEffect, useRef, useState } from "react";
-// import {
-//   loadCaptchaEnginge,
-//   LoadCanvasTemplate,
-//   validateCaptcha,
-// } from "react-simple-captcha";
 import img from "../assets/others/authentication2.png"
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {FcGoogle} from 'react-icons/fc'
 import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthProvider";
 
 const Login = () => {
-//   const captchaRef = useRef(null);
-//   const [disabled, setDisabled] = useState(true);
 
-//   useEffect(() => {
-//     loadCaptchaEnginge(6);
-//   }, []);
+const navigate = useNavigate();
+const location = useLocation();
+const { signInWIthMail} = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
     const email = form.get("email");
     const password = form.get("password");
-
-    console.log(email, password);
+ // console.log(email, password);
+ signInWIthMail(email, password)
+ .then ((res) => {
+    // const user = res.user;
+    toast.success("user logged in successfully");
+    navigate(location?.state ? location?.state : "/")
+ })
+ .then((err) => {
+    toast.error(err.message);
+  })
   };
 
-//   const handleValidateCaptcha = () => {
-//     const captcha = captchaRef.current.value;
-//     const result = validateCaptcha(captcha);
-//     if (result == true) {
-//       setDisabled(false);
-//     }
-//   };
 
   return (
     <div className="hero min-h-screen bg-base-200">

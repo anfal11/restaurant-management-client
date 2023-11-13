@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -13,7 +13,6 @@ import toast from "react-hot-toast";
 
 const Register = () => {
   const [disabled, setDisabled] = useState(true);
-  const captchaRef = useRef(null);
   const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -24,16 +23,16 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     createUser(data.email, data.password)
         .then((result) => {
             const loggedInUser = result.user;
             navigate('/login')
-            console.log(loggedInUser);
+            // console.log(loggedInUser);
             toast.success("User created successfully");
         })
         .catch((error) => {
-            console.log(error.message);
+            toast.error(error.message);
         });
   };
 
@@ -52,8 +51,8 @@ const Register = () => {
   //     console.log(photo, name, email, password);
   //   };
 
-  const handleValidateCaptcha = () => {
-    const captcha = captchaRef.current.value;
+  const handleValidateCaptcha = (e) => {
+    const captcha = e.target.value;
     const result = validateCaptcha(captcha);
     if (result == true) {
       setDisabled(false);
@@ -163,19 +162,17 @@ const Register = () => {
                 <LoadCanvasTemplate />
               </label>
               <input
-                ref={captchaRef}
+              onBlur={handleValidateCaptcha}
                 type="text"
                 name="captcha"
                 placeholder="type your captcha"
                 className="input input-bordered"
                 required
               />
-              <button
-                onClick={handleValidateCaptcha}
-                className="btn btn-outline hover:bg-[#dab884] hover:border-[#dab884] btn-xs mt-3"
-              >
-                Validate Captcha
-              </button>
+
+              
+               
+              
             </div>
             <div className="form-control mt-6">
               <input

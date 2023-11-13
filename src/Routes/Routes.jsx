@@ -6,6 +6,7 @@ import ErrorPage from "../Pages/ErrorPage";
 import Order from "../Pages/Order";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
