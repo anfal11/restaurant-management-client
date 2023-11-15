@@ -10,11 +10,13 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../Context/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const Register = () => {
   const [disabled, setDisabled] = useState(true);
   const { createUser, userUpdateProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -27,11 +29,23 @@ const Register = () => {
     createUser(data.email, data.password)
         .then((result) => {
             const loggedInUser = result.user;
-            navigate('/login')
             // console.log(loggedInUser);
-            userUpdateProfile(data.name, data.photo)
+            userUpdateProfile(data.name, data.email, data.photo)
             .then (() => {
-              toast.success("User created successfully");
+              const userInfo = {
+                email: data.email,
+                name: data.name,
+                photo: data.photo,
+              }
+              // console.log(userInfo);
+              axiosPublic.post('/api/v1/users', userInfo)
+              .then((res) => {
+                if (res.data.insertedId) {
+                  data.target.reset();
+                  toast.success("User registered successfully");
+                }
+                navigate('/')
+              })
             })
             .catch((error) => {
               toast.error(error.message);

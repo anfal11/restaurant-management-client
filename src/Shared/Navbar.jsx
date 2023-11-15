@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="">Dashboard</Link>
+        <Link to="dashboard">Dashboard</Link>
       </li>
       <li>
         <Link to="/menu">Our Menu</Link>
@@ -34,7 +34,7 @@ const Navbar = () => {
       </li> </>
       }
       <li>
-        <Link to='/'>
+        <Link to='/dashboard/cart'>
         <p className="flex">
         <BsCartCheckFill className="text-xl"></BsCartCheckFill>
   <div className="badge badge-secondary">+{cart.length}</div>

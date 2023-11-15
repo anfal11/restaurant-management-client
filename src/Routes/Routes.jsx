@@ -6,6 +6,9 @@ import ErrorPage from "../Pages/ErrorPage";
 import Order from "../Pages/Order";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import DashBoard from "../Pages/DashBoard";
+import Cart from "../Pages/Cart";
+import PrivateRoute from "./PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -36,4 +39,14 @@ export const router = createBrowserRouter([
       }
     ],
   },
+  {
+    path: 'dashboard',
+    element: <DashBoard />,
+    children: [
+      {
+        path: 'cart',
+        element: <PrivateRoute><Cart /></PrivateRoute>,
+      }
+    ]
+  }
 ]);
