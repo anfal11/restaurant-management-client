@@ -30,21 +30,22 @@ const Register = () => {
         .then((result) => {
             const loggedInUser = result.user;
             // console.log(loggedInUser);
-            userUpdateProfile(data.name, data.email, data.photo)
-            .then (() => {
+            userUpdateProfile(data.name, data.email, data.photoURL)
+            .then ((res) => {
               const userInfo = {
-                email: data?.email,
                 name: data?.name,
-                photo: data?.photo,
+                email: data?.email,
+                photoURL: data?.photoURL,
               }
+              console.log('userInfo',userInfo);
               // console.log(userInfo);
               axiosPublic.post('/api/v1/users', userInfo)
               .then((res) => {
                 if (res.data.insertedId) {
-                  data.target.reset();
+                  // data.target.reset();
                   toast.success("User registered successfully");
+                  navigate('/login')
                 }
-                navigate('/')
               })
             })
             .catch((error) => {
@@ -94,12 +95,12 @@ const Register = () => {
               </label>
               <input
                 type="text"
-                name="photo"
+                name="photoURL"
                 placeholder="Your photo url"
                 className="input input-bordered"
-                {...register("photo", { required: true })}
+                {...register("photoURL", { required: true })}
               />
-              {errors.photo && (
+              {errors.photoURL && (
                 <span className="text-red-500">PhotoUrl is required</span>
               )}
             </div>

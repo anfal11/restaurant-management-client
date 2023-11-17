@@ -21,7 +21,7 @@ const axiosPublic = useAxiosPublic();
     const password = form.get("password");
  // console.log(email, password);
  signInWIthMail(email, password)
- .then ((res) => {
+ .then((res) => {
     // const user = res.user;
     toast.success("user logged in successfully");
     navigate(location?.state ? location?.state : "/")
