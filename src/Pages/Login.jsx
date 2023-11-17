@@ -5,12 +5,14 @@ import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const Login = () => {
 
 const navigate = useNavigate();
 const location = useLocation();
 const { signInWIthMail, signInWithGoogle} = useContext(AuthContext);
+const axiosPublic = useAxiosPublic();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,14 +33,36 @@ const { signInWIthMail, signInWithGoogle} = useContext(AuthContext);
 
   const handleGoogleLogin = async () => {
     try {
-      await signInWithGoogle();
-      toast.success("User logged in successfully");
-      navigate(location?.state ? location?.state : "/");
+       await signInWithGoogle()
+       .then(res => {
+          const user = res.user;
+          const name = user?.displayName;
+          const email = user?.email;
+          const photoUrl = user?.photoURL;
+          const userInfo = {name, email, photoUrl};
+          axiosPublic.post("/api/v1/users", userInfo)
+          .then(res => {
+             toast.success("user logged in successfully");
+             navigate(location?.state ? location?.state : "/")
+          })
+          .catch(err => {
+             toast.error(err.message);
+          })
+       })
+    } catch (err) {
+       toast.error(err.message);
     }
-    catch (err) {
-      toast.error(err.message);
-    }
-  }
+ }
+// const userInfo = {
+//   email: data.res.email, 
+//   name: user.displayName, 
+//   photo: user.photoURL,
+// }
+// axiosPublic.post('', userInfo);
+// toast.success("User logged in successfully");
+// navigate(location?.state ? location?.state : "/");
+
+ 
 
 
   return (
