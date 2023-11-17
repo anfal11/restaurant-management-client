@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const AllUsers = () => {
   const axiosSecure = useAxios();
 
-  const { reFetch, data: users = [] } = useQuery({
+  const { refetch, data: users = [] } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/api/v1/users`);
@@ -17,7 +17,7 @@ const AllUsers = () => {
 
   const handleDeleteUser = (user) => {
     Swal.fire({
-      title: "Are you sure you want to remove item from cart?",
+      title: "Are you sure you want to remove this user?",
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
@@ -29,13 +29,13 @@ const AllUsers = () => {
 
           axiosSecure.delete(`/api/v1/users/${user._id}`)
           .then((result) => {
-              if (result.data.deletedCount > 0) {
+              if (result.data.modifiedCount > 0) {
+                refetch();
                   Swal.fire({
                       title: "Removed!",
                       text: "Your item has been removed.",
                       icon: "success"
                     });
-                    reFetch();
               }
           })
 
@@ -45,7 +45,20 @@ const AllUsers = () => {
   }
 
   const handleMakeAdmin = (user) => {
-    
+    axiosSecure.patch(`/api/v1/users/admin/${user._id}`)
+    .then((result) => {
+      if (result.data.modifiedCount > 0) {
+        Swal.fire({
+          position: 'top-end',
+          title: `${user.name} is an Admin Now...`,
+          showConfirmButton: false,
+          icon: "success",
+          timer: 1500,
+        });
+        refetch();
+
+  }
+    });
   }
 
   return (
@@ -85,9 +98,12 @@ const AllUsers = () => {
                       </div>
                     </td>
                     <td>
-                    <button onClick={()=> handleMakeAdmin(user)}>
+                    {
+                      user.role === 'admin' ? <p className="text-xl font-bold text-gray-500">Admin</p> :
+                      <button onClick={()=> handleMakeAdmin(user)}>
                 <FaUsers className="text-2xl lg:text-4xl bg-[#D1A054] text-white p-1" />
                 </button>
+                    }
                     </td>                   
                     <td>
                       <button onClick={()=> handleDeleteUser(user)}>
