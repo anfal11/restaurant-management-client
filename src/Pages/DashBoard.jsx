@@ -10,6 +10,7 @@ const DashBoard = () => {
     const [cart] = useCart();
 
     const [isAdmin] = useAdmin();
+    console.log(isAdmin);
     return (
         <div className="flex">
             {/* dashboard sidebar */}
@@ -18,7 +19,8 @@ const DashBoard = () => {
                     {/* Admin Nav Links  */}
 
                     {
-                        isAdmin ? <>
+                       isAdmin ? 
+                       <>
                         <li>
                         <NavLink to="/dashboard/adminHome" className="menu text-base lg:text-2xl p-5 text-white text-center">
                         <BsHouse></BsHouse>
