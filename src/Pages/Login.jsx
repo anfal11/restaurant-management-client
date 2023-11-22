@@ -11,6 +11,7 @@ const Login = () => {
 
 const navigate = useNavigate();
 const location = useLocation();
+console.log(location);
 const { signInWIthMail, signInWithGoogle} = useContext(AuthContext);
 const axiosPublic = useAxiosPublic();
 
