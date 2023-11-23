@@ -2,12 +2,15 @@ import { useForm } from "react-hook-form";
 import SectionTitle from "./SectionTitle";
 import { FaUtensils } from "react-icons/fa";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import useAxios from "../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 const AddItems = () => {
   const { register, handleSubmit } = useForm();
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxios();
   const onSubmit = async(data) => {
         console.log(data);
         const imageFIle = {image : data.image[0]}
@@ -21,6 +24,20 @@ const AddItems = () => {
         });
         if(res.data.success){
             // now send the data of menu to the server with the image url
+            const menuItem = {
+                name: data.name,
+                category: data.category,
+                price: parseFloat(data.price),
+                recipe: data.recipe,
+                image: res.data.data.display_url
+            }
+            //
+            const menuRes = await axiosSecure.post('/api/v1/menu', menuItem);
+            console.log(menuRes.data);
+            if (menuRes.data.insertedId){
+              //show success popup
+              toast.success('Item Added Successfully');
+            }
 
         }
         console.log(res.data);
