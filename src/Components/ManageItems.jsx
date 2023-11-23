@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import useAxios from "../Hooks/useAxios";
 
 const ManageItems = () => {
-    const [menu] = useMenu();
+    const [menu, , refetch] = useMenu();
     const axiosSecure = useAxios();
 
     const handleDelete = (item) => {
@@ -22,8 +22,8 @@ const ManageItems = () => {
             if (result.isConfirmed) {
       
               const res = await axiosSecure.delete(`/api/v1/menu/${item._id}`)
-                .then((result) => {
-                    if (result.data.modifiedCount > 0) {
+                
+                    if (res.data.modifiedCount > 0) {
                         // refetch to update the ui
                       refetch();
                         Swal.fire({
@@ -34,7 +34,7 @@ const ManageItems = () => {
                             timer: 1500,
                           });
                     }
-                })
+                
       
               
             }
