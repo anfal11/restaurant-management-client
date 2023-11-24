@@ -6,6 +6,7 @@ import useAxios from "../Hooks/useAxios";
 import useCart from "../Hooks/useCart";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = () => {
     const [clientSecret, setClientSecret] = useState("");
@@ -19,6 +20,7 @@ const CheckOutForm = () => {
         return total + item.price;
     }, 0);
     const {user} = useContext(AuthContext)
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -91,6 +93,7 @@ const CheckOutForm = () => {
            refetch();
            if(res.data?.payment?.insertedId){
                 toast.success('Payment Successful');
+                navigate('/dashboard/paymentHistory');
            }
           }
         }
