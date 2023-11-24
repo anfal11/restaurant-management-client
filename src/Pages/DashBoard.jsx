@@ -60,14 +60,14 @@ const DashBoard = () => {
                             User Home
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to="/dashboard/reservation" className="menu text-base lg:text-2xl p-5 text-white text-center">
                         <BsCalendar></BsCalendar>
                             Reservation
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li>
-                        <NavLink to="/dashboard/payment" className="menu text-base lg:text-2xl p-5 text-white text-center">
+                        <NavLink to="/dashboard/paymentHistory" className="menu text-base lg:text-2xl p-5 text-white text-center">
                         <BsPaypal></BsPaypal>
                             Payment History
                         </NavLink>
