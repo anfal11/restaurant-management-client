@@ -87,6 +87,7 @@ const CheckOutForm = () => {
                     transactionId: paymentIntent.id,
                     date: new Date(), //utc convert
                     cartIds: cart.map(item => item._id),
+                    menuItemId: cart.map(item => item._id),
                     status: 'pending', 
             }
            const res = await axiosSecure.post('/api/v1/payments', payment)

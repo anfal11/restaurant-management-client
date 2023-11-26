@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import {  BsCalendar, BsCart4, BsHouse, BsList, BsPaypal} from 'react-icons/bs'
+import { BsCart4, BsHouse, BsList, BsPaypal} from 'react-icons/bs'
 import {MdContactMail, MdFastfood, MdReviews} from 'react-icons/md'
 import useCart from "../Hooks/useCart";
 import { FaBook, FaList, FaUtensils } from "react-icons/fa";
