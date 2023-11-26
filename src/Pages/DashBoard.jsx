@@ -78,7 +78,7 @@ const DashBoard = () => {
                             My Cart ({cart.length})
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to="/dashboard/review" className="menu text-base lg:text-2xl p-5 text-white text-center">
                         <MdReviews></MdReviews>
                             Add Review
@@ -89,7 +89,7 @@ const DashBoard = () => {
                         <BsList></BsList>
                             My Booking
                         </NavLink>
-                    </li>
+                    </li> */}
                         </>
                     }
 

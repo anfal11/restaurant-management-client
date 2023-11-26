@@ -45,7 +45,7 @@ const Order = () => {
      }
     //  console.log(cartItem);
 
-    //  axios.post('http://localhost:5000/api/v1/cart', cartItem)
+    //  axios.post('https://restaurant-management-server-xi.vercel.app/api/v1/cart', cartItem)
     axiosSecure.post('/api/v1/cart', cartItem)
         .then((res) => {
           console.log(res.data);
